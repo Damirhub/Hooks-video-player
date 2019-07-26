@@ -5,7 +5,7 @@ const StyledPlaylist = styled.div`
   -ms-flex: 1 1 450px;
   flex: 1 1 450px;
   overflow: hidden;
-  color: white;
+  color: red;
   /* height: 0;
   padding-top:50px;
   padding-bottom: 36%; */
