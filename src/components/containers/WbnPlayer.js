@@ -44,7 +44,14 @@ const WbnPlayer = ({ match, history, location }) => {
 
     // const videos = JSON.parse(document.querySelector('[name = "videos"]').value)
 
-    // console.log("VIDEOS", videos)
+    console.log("VIDEOS", videos)
+
+    if (!match.params.activeVideo) {
+
+        history.push({
+            pathname: `/`,
+        }) 
+    }
 
 
     const [state, setState] = useState({
@@ -57,6 +64,7 @@ const WbnPlayer = ({ match, history, location }) => {
 
     // :FIXME to gix tis
     useEffect(() => {
+
 
         const routeVideoId = match.params.activeVideo
         console.log('match.params.activeVideo', match.params.activeVideo);
@@ -86,14 +94,48 @@ const WbnPlayer = ({ match, history, location }) => {
 
 
     const nightModeCallback = () => {
-
+        setState(prevState => ({ ...prevState,
+                    nightMode: !prevState.nightMode}))
     }
 
     const endCallback = () => {
+        const videoId = match.params.activeVideo
+        const currentVideoIndex = state.videos.findIndex(
+            video => video.id === videoId
+        ) 
 
+        const nextVideo = 
+            (currentVideoIndex === state.videos.length - 1) ? 0 : currentVideoIndex + 1
+            console.log("NEXTVIDEO" ,nextVideo)
+
+        history.push({
+            pathname : `/${state.videos[nextVideo].id}`,
+            autoplay: false
+        })
+    
     }
 
-    const progressCallback = () => {
+    const progressCallback = (e) => {
+        if(e.playedSeconds > 3 && e.playedSeconds < 4) {
+            const videos = [...state.videos]
+            const playedVideo = videos.find (
+                video => video.id === state.activeVideo.id
+            )
+            playedVideo.played = true
+
+            setState( prevState => ({ ...prevState, videos }))
+        }
+
+    //     if(e.playedSeconds > 3 && e.playedSeconds < 4) {
+    //         setState ({
+    //             ...state,
+    //             videos : state.videos.map( element => { 
+    //                 return element.id === state.activeVideo.id
+    //                 ? {...element, played : true}
+    //                 : element
+    //             })
+    //         })
+    //     }
 
     }
 
