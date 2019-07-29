@@ -46,6 +46,8 @@ const WbnPlayer = ({ match, history, location }) => {
 
     console.log("VIDEOS", videos)
 
+    const savedState = JSON.parse(localStorage.getItem(`${videos.playlistId}`))
+
     if (!match.params.activeVideo) {
 
         history.push({
@@ -54,13 +56,34 @@ const WbnPlayer = ({ match, history, location }) => {
     }
 
 
+    // const [state, setState] = useState({
+    //     videos: videos.playlist,
+    //     activeVideo: videos.playlist[3],
+    //     nightMode: true,
+    //     playlistId: videos.playlistId,
+    //     autoplay: false
+    // })
+
     const [state, setState] = useState({
-        videos: videos.playlist,
-        activeVideo: videos.playlist[3],
-        nightMode: true,
-        playlistId: videos.playlistId,
-        autoplay: false
+        videos: savedState ? savedState.videos : videos.playlist,
+        activeVideo: savedState ? savedState.activeVideo : videos.playlist[3],
+        nightMode: savedState ? savedState.nightMode : true,
+        playlistId: savedState ? savedState.playlistId : videos.playlistId,
+        autoplay: savedState ? savedState.autoplay : false
     })
+
+    useEffect (
+        () => {
+            localStorage.setItem(`${state.playlistId}`, JSON.stringify({...state}))
+        },
+        [state]
+    )
+
+
+
+
+
+
 
     // :FIXME to gix tis
     useEffect(() => {
