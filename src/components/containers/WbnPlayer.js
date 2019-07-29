@@ -106,7 +106,6 @@ const WbnPlayer = ({ match, history, location }) => {
                         autoplay={state.autoplay}
                         endCallback={endCallback}
                         progressCallback={progressCallback}
-
                     />
                     <Playlist
                         videos={state.videos}

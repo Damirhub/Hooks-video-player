@@ -2,8 +2,6 @@ import styled from "styled-components";
 
 const StyledPlaylistItem = styled.div`
   font-family: "Hind", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background: none;
   border: ${props => (props.active ? "2px dotted #696969" : "none")};
   font-size: 1.6em;
@@ -11,8 +9,6 @@ const StyledPlaylistItem = styled.div`
   min-height: 50px;
   padding: 10px 20px;
   margin: 0 0 10px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
